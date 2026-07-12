@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מכינה קדם-צבאית | מיון חניכים</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;700&amp;display=swap');
+        
+        :root {
+            --primary: #0a3d62;
+            --secondary: #00b894;
+            --accent: #f39c12;
+            --light: #f8f9fa;
+            --dark: #2d3436;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans Hebrew', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: rgba(10, 61, 98, 0.95);
+            color: white;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .logo-img {
+            height: 50px;
+            width: 50px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+        
+        .hero {
+            height: 100vh;
+            min-height: 650px;
+            background: linear-gradient(rgba(10, 61, 98, 0.75), rgba(10, 61, 98, 0.75)), 
+                        url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.35rem;
+            max-width: 650px;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 184, 148, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 184, 148, 0.4);
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+        }
+        
+        .form-section {
+            background: white;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(10, 61, 98, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 4px rgba(0, 184, 148, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), #1e5a8c);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(10, 61, 98, 0.3);
+        }
+        
+        .success-message {
+            display: none;
+            background: #d5f0e6;
+            color: #006b4d;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 2rem auto;
+            max-width: 700px;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            transition: all 0.4s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-number {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .about-image {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: #ddd;
+            text-align: center;
+            padding: 3rem 0;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            section {
+                padding: 70px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-img">מ</div>
+                <span>מכינה קדם-צבאית</span>
+            </div>
+            <nav>
+                <a href="#" style="color: white; text-decoration: none; margin-left: 2rem; font-weight: 500;">אודות</a>
+                <a href="#" style="color: white; text-decoration: none; margin-left: 2rem; font-weight: 500;">שלבים</a>
+                <a href="#" style="color: white; text-decoration: none; font-weight: 500;">צור קשר</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>בנה את מנהיגותך</h1>
+            <p>הצטרף למכינה הקדם-צבאית המובילה בישראל.<br>תהליך מיון קפדני ומכבד שמוביל אותך לקראת שירות משמעותי.</p>
+            <a href="#form-section" class="cta-button">הרשם עכשיו למיון</a>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section id="form-section" class="form-section">
+        <div class="container">
+            <h2>הרשמה למיון חניכים</h2>
+            
+            <div class="form-container" id="form-container">
+                <form id="registration-form">
+                    <div class="form-group">
+                        <label for="full-name">שם מלא</label>
+                        <input type="text" id="full-name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">טלפון</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">עיר מגורים</label>
+                            <input type="text" id="city" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">כתובת אימייל</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email-confirm">אימות כתובת אימייל</label>
+                        <input type="email" id="email-confirm" required>
+                    </div>
+                    
+                    <button type="submit">שלח בקשה למיון</button>
+                </form>
+            </div>
+            
+            <!-- Success Message -->
+            <div id="success-message" class="success-message">
+                <h3>תודה רבה!</h3>
+                <p>בקשת ההרשמה שלך התקבלה בהצלחה.<br>
+                צוות המיון שלנו בודק את הפרטים. במידה והם תואמים את הקריטריונים, ניצור איתך קשר תוך 5 ימי עסקים להזמנה לשלב הבא.</p>
+                <p style="margin-top: 15px; font-size: 1.1rem;">בהצלחה ותודה שבחרת בנו!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info Cards -->
+    <section style="background: #f8f9fa;">
+        <div class="container">
+            <h2>שלבי תהליך המיון</h2>
+            
+            <div class="cards">
+                <!-- Card 1 -->
+                <div class="card">
+                    <div class="card-number">1</div>
+                    <h3>הרשמה מקוונת</h3>
+                    <p>מילוי הטופס ומסירת הפרטים הבסיסיים. זהו השלב הראשון והחשוב בתהליך.</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="card">
+                    <div class="card-number">2</div>
+                    <h3>ראיון אישי</h3>
+                    <p>ראיון טלפוני או זום עם רכז המיון לבחינת התאמה, מניעים וערכים.</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="card">
+                    <div class="card-number">3</div>
+                    <h3>סדנת מיון</h3>
+                    <p>יום מיון מעמיק במכינה הכולל מבחנים, פעילויות קבוצתיות וראיונות פנים אל פנים.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image & About -->
+    <section>
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+                <div>
+                    <h2 style="text-align: right;">שנת המכינה 2025-2026</h2>
+                    <p style="font-size: 1.2rem; line-height: 1.8; color: #555;">
+                        במכינה שלנו אנו מגדלים דור חדש של מנהיגים אחראיים, בעלי ערכים ומסירות. 
+                        יותר מ-85% מבוגרינו משרתים בתפקידי פיקוד והובלה משמעותיים.
+                    </p>
+                    <ul style="margin-top: 2rem; font-size: 1.1rem; line-height: 2;">
+                        <li>✓ הכנה מקיפה לשירות צבאי</li>
+                        <li>✓ פיתוח מנהיגות אישית</li>
+                        <li>✓ קהילה תומכת וחברית</li>
+                        <li>✓ ליווי אישי לאורך כל הדרך</li>
+                    </ul>
+                </div>
+                <div>
+                    <img src="https://picsum.photos/id/1016/800/600" alt="חניכי המכינה" class="about-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 מכינה קדם-צבאית - כל הזכויות שמורות</p>
+            <p style="margin-top: 10px;">לשאלות: <a href="mailto:info@mekhina.org" style="color: #00b894;">info@mekhina.org</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('registration-form');
+        const formContainer = document.getElementById('form-container');
+        const successMessage = document.getElementById('success-message');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const emailConfirm = document.getElementById('email-confirm').value;
+            
+            if (email !== emailConfirm) {
+                alert('כתובות האימייל אינן תואמות. אנא בדוק ונסה שוב.');
+                return;
+            }
+            
+            // Simulate processing
+            form.style.display = 'none';
+            
+            // Show success message
+            successMessage.style.display = 'block';
+            
+            // Scroll to message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // In real application - here you would send data to server
+            console.log('Form submitted successfully with data:');
+            console.log({
+                fullName: document.getElementById('full-name').value,
+                phone: document.getElementById('phone').value,
+                city: document.getElementById('city').value,
+                email: email
+            });
+        });
+        
+        // Smooth scroll for CTA button
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#form-section') {
+                    e.preventDefault();
+                    document.getElementById('form-section').scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

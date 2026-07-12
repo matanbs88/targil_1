@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="מערכת גיוס ומיון חניכים למכינה קדם צבאית">
+<meta name="theme-color" content="#0a3d62">
+<title>מערכת גיוס ומיון חניכים</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f7fb;color:#222;direction:rtl}
+header{background:#0a3d62;color:#fff;padding:18px 24px;position:sticky;top:0}
+.hero{padding:80px 20px;background:linear-gradient(rgba(10,61,98,.8),rgba(10,61,98,.8)),url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1600&q=80') center/cover;color:#fff;text-align:center}
+.container{max-width:1100px;margin:auto;padding:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:#fff;padding:20px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+form{display:grid;gap:14px}
+input{padding:14px;border:1px solid #ccc;border-radius:10px}
+button{padding:14px;border:none;border-radius:10px;background:#0a3d62;color:#fff;font-size:18px;cursor:pointer}
+button:disabled{opacity:.6}
+.error{color:#c62828;font-size:.9rem}
+.success{display:none;background:#e8f8ef;border-right:5px solid #2e7d32;padding:16px;border-radius:10px}
+@media(min-width:700px){.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}}
+</style>
+</head>
+<body>
+<header><strong>לוגו המכינה</strong></header>
+<section class="hero">
+<h1>ברוכים הבאים לתהליך המיון</h1>
+<p>מלאו את הפרטים וניצור קשר במידה ותימצאו מתאימים להמשך התהליך.</p>
+</section>
+<main class="container">
+<div class="card">
+<h2>טופס הרשמה</h2>
+<form id="f" novalidate>
+<input autocomplete="name" id="name" placeholder="שם מלא" required>
+<div class="two">
+<div><input autocomplete="tel" id="phone" placeholder="טלפון" required><div class="error" id="ephone"></div></div>
+<div><input id="city" placeholder="עיר מגורים" required></div>
+</div>
+<input autocomplete="email" id="email" type="email" placeholder="אימייל" required>
+<input autocomplete="email" id="email2" type="email" placeholder="וידוא אימייל" required>
+<button id="btn">שליחת מועמדות</button>
+</form>
+<div id="ok" class="success" aria-live="polite">
+<h3>תודה!</h3>
+<p>ההרשמה התקבלה. צוות המכינה יבדוק את הפרטים, ואם תימצא התאמה ניצור איתך קשר להמשך תהליך המיון.</p>
+</div>
+</div>
+<h2>שלבי המיון</h2>
+<div class="grid">
+<div class="card"><h3>1. הרשמה</h3><p>מילוי הטופס.</p></div>
+<div class="card"><h3>2. ראיון</h3><p>שיחה עם צוות המכינה.</p></div>
+<div class="card"><h3>3. יום מיון</h3><p>פעילות קבוצתית והיכרות.</p></div>
+</div>
+</main>
+<script>
+const f=document.getElementById('f');
+f.addEventListener('submit',async(e)=>{
+e.preventDefault();
+const btn=document.getElementById('btn');
+const phone=document.getElementById('phone').value.trim();
+const email=document.getElementById('email').value.trim();
+const email2=document.getElementById('email2').value.trim();
+document.getElementById('ephone').textContent='';
+if(!/^0(5\d|[23489])\d{7}$/.test(phone)){document.getElementById('ephone').textContent='מספר טלפון לא תקין';return;}
+if(email!==email2){alert('כתובות האימייל אינן תואמות');return;}
+btn.disabled=true;btn.textContent='שולח...';
+try{
+// await fetch('/api/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({})});
+await new Promise(r=>setTimeout(r,800));
+f.style.display='none';
+document.getElementById('ok').style.display='block';
+}catch(err){alert('אירעה שגיאה. נסה שוב.');}
+finally{btn.disabled=false;btn.textContent='שליחת מועמדות';}
+});
+</script>
+</body></html>

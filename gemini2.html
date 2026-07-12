@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת מיון | מכינת עין פרת</title>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1b365d;
+            --accent: #d1bfae;
+            --text: #2d3748;
+            --bg: #ffffff;
+            --light-bg: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            padding-bottom: 50px;
+        }
+
+        /* Hero Section - מינימליסטי ואוורירי */
+        .hero {
+            padding: 100px 20px;
+            text-align: center;
+            background-color: var(--light-bg);
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        /* כרטיסיות מידע */
+        .info-card {
+            padding: 30px;
+            border: 1px solid #edf2f7;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .info-card:hover { border-color: var(--accent); }
+
+        .info-card h3 { color: var(--primary); margin-bottom: 10px; }
+
+        /* טופס הרשמה */
+        .form-box {
+            background: #fff;
+            padding: 40px;
+            border: 1px solid #edf2f7;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            font-family: inherit;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        button:hover { background: var(--accent); }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>תהליך המיון למכינה</h1>
+        <p>מערכת הרישום של מכינת עין פרת – שלוחת ניר עם. כאן מתחיל המסע שלך אל עבר שנת עשייה, מנהיגות וחיבור לזהות הישראלית.</p>
+    </header>
+
+    <main class="container">
+        <section>
+            <div class="info-card">
+                <h3>1. הרשמה דיגיטלית</h3>
+                <p>מילוי טופס פרטים אישיים והצגת מניעים להצטרפות.</p>
+            </div>
+            <div class="info-card">
+                <h3>2. ראיון אישי</h3>
+                <p>שיחה עומק עם צוות המכינה להכרות הדדית.</p>
+            </div>
+            <div class="info-card">
+                <h3>3. סדנת מיון</h3>
+                <p>מפגש שטח קבוצתי לבחינת התאמה ודינמיקה.</p>
+            </div>
+        </section>
+
+        <section class="form-box">
+            <form>
+                <input type="text" placeholder="שם מלא" required>
+                <input type="tel" placeholder="טלפון" required>
+                <input type="text" placeholder="עיר מגורים" required>
+                <input type="email" placeholder="אימייל" required>
+                <input type="email" placeholder="אימות אימייל" required>
+                <textarea rows="4" placeholder="למה אני רוצה להגיע למכינה?"></textarea>
+                <button type="submit">הגשת מועמדות</button>
+            </form>
+        </section>
+    </main>
+
+</body>
+</html>
