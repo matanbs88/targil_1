@@ -1,0 +1,166 @@
+/* onboarding.html — setup wizard styles */
+
+body {
+    background-color: var(--mint-tint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Wizard Container */
+.wizard-container {
+    background: var(--surface);
+    width: 580px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px rgba(26,83,26,0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+/* Progress Bar */
+.progress-bar {
+    display: flex;
+    background: var(--off-white);
+    border-bottom: 1px solid var(--border-color);
+}
+.progress-step {
+    flex: 1;
+    text-align: center;
+    padding: 14px 0;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-muted);
+    position: relative;
+}
+.progress-step.active {
+    color: var(--deep-ink);
+    font-weight: 600;
+}
+.progress-step.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--warm-sand-text);
+}
+
+/* Wizard Body */
+.wizard-body {
+    padding: 36px 40px;
+    min-height: 280px;
+}
+.step-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+.step-content.active {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+h2 { margin-top: 0; color: var(--deep-ink); font-size: 21px; font-weight: 600; letter-spacing: -0.2px; }
+p { color: var(--text-muted); font-size: 13.5px; margin-bottom: 22px; line-height: 1.6; }
+
+/* Form Elements */
+label { display: block; font-weight: 500; margin-bottom: 7px; font-size: 13px; color: var(--text-dark); }
+input[type="text"], input[type="date"], input[type="number"] {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-bottom: 18px;
+    font-family: inherit;
+    color: var(--text-dark);
+}
+input[type="date"], input[type="number"] { font-family: var(--font-mono); }
+input:focus { outline: none; border-color: var(--warm-sand-text); }
+
+.upload-box {
+    border: 1.5px dashed var(--border-color);
+    padding: 18px;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13.5px;
+    transition: border-color 0.15s, color 0.15s;
+}
+.upload-box:hover { border-color: var(--warm-sand-text); color: var(--deep-ink); }
+
+/* Funnel Builder (Step 2) */
+.funnel-stage-box {
+    background: var(--off-white);
+    border: 1px solid var(--border-color);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--deep-ink);
+}
+.funnel-stage-box.locked { background: var(--surface); border-color: var(--warm-sand-text); }
+.badge-locked { display: inline-flex; align-items: center; gap: 5px; color: var(--text-muted); font-size: 11.5px; font-weight: 500; }
+.badge-locked svg { width: 12px; height: 12px; }
+
+/* Dates Builder (Step 3) */
+.date-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: var(--surface);
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+}
+.date-row input { margin-bottom: 0; }
+.date-row label { font-size: 11.5px; margin-bottom: 5px; }
+.remove-btn { color: var(--text-muted); cursor: pointer; font-size: 18px; border: none; background: none; line-height: 1; padding: 4px 8px; border-radius: var(--radius-sm); }
+.remove-btn:hover { color: var(--danger); background: var(--surface-alt); }
+
+.dashed-btn { width: 100%; border: 1.5px dashed var(--border-color); background: transparent; color: var(--text-muted); font-weight: 500; }
+.dashed-btn:hover { border-color: var(--warm-sand-text); color: var(--deep-ink); background: var(--off-white); }
+
+/* Finish step */
+.finish-icon { width: 52px; height: 52px; margin: 0 auto 20px; background: var(--sand-tint); display: flex; align-items: center; justify-content: center; }
+.finish-icon svg { width: 26px; height: 26px; stroke: var(--warm-sand-text); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Footer / Navigation */
+.wizard-footer {
+    padding: 18px 40px;
+    background: var(--off-white);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+button {
+    padding: 11px 22px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, box-shadow 0.15s;
+}
+/* Primary CTA gets a full pill — the rest of the wizard stays sharp.
+   Dark text on the CTA orange: white measures ~2.3:1 (fails WCAG AA); dark text measures ~5.4:1. */
+button.primary { background: var(--warm-sand); color: var(--text-dark); border-radius: 999px; padding: 11px 28px; }
+button.primary:hover { background: var(--warm-sand-hover); box-shadow: 0 4px 14px rgba(255, 140, 0, 0.35); }
+button.secondary { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+button.secondary:hover { color: var(--deep-ink); background: var(--surface-alt); }
+button.text-only { background: transparent; color: var(--text-muted); padding: 0; font-weight: 500; }
+button.text-only:hover { color: var(--deep-ink); }

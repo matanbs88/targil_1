@@ -1,0 +1,51 @@
+/* Shared design tokens — used by index.html and onboarding.html
+   "Mint & Peach" web design palette:
+   primary mint #C8F3E5, peach/sand #F9D0A3, neutrals #333/#A0A0A0/#FAFAFA,
+   complementary dark green #1A531A, alternative accent #FFB380, CTA orange #FF8C00. */
+:root {
+    --warm-sand: #ff8c00;
+    --warm-sand-hover: #e67a00;
+    --warm-sand-text: #a34900; /* WCAG-AA-safe variant of the CTA orange, for text/icons/borders on light backgrounds */
+    --sand-tint: #ffe9ce;
+    --mint-tint: #c8f3e5;
+    --mint-tint-hover: #b4dfd1;
+    --peach-tint: #f9d0a3;
+    --deep-ink: #1a531a;
+    --deep-ink-soft: #3e7a46;
+    --off-white: #fafafa;
+    --surface: #ffffff;
+    --surface-alt: #c8f3e5;
+    --text-dark: #333333;
+    --text-muted: #606060; /* darkened from the spec's #a0a0a0, which fails WCAG AA (~2.6:1) at real text sizes */
+    --border-color: #e2e2e2;
+
+    --success: #1a531a;
+    --success-bg: #e4f5ea;
+    --success-border: #bfe0c8;
+    --warning: #e0895a;
+    --warning-bg: #fff1e7;
+    --warning-border: #ffb380;
+    --danger: #d64545;
+    --danger-bg: #fbe8e6;
+    --danger-border: #f0c4be;
+
+    /* Sharp geometry — straight edges everywhere, no rounded corners */
+    --radius-sm: 0;
+    --radius-md: 0;
+    --radius-lg: 0;
+    --shadow-sm: none;
+    --shadow-md: 0 12px 28px rgba(26, 83, 26, 0.14);
+
+    --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: 'Heebo', 'Segoe UI', Tahoma, sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+.mono { font-family: var(--font-mono); }

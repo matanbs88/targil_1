@@ -3,131 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>מערכת מגדלור - Master Version</title>
-    <style>
-        /* Design System & Variables */
-        :root {
-            --warm-sand: #d6a47a;
-            --warm-sand-hover: #c59165;
-            --deep-navy: #2d3436;
-            --off-white: #f8f7f4;
-            --text-dark: #333;
-            --text-muted: #888;
-            --border-color: #e0e0e0;
-            --alert-orange: #e17055;
-            --success-green: #00b894;
-            --wait-yellow: #fdcb6e;
-        }
-
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--off-white); margin: 0; display: flex; color: var(--text-dark); height: 100vh; overflow: hidden; }
-        
-        /* Sidebar */
-        .sidebar { width: 250px; background: var(--deep-navy); color: white; height: 100vh; padding: 20px 25px; box-sizing: border-box; overflow-y: auto; flex-shrink: 0; }
-        .sidebar h2 { font-size: 24px; color: var(--warm-sand); margin-top: 0; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;}
-        .nav-category { font-size: 12px; color: #aaa; text-transform: uppercase; margin-top: 25px; margin-bottom: 10px; font-weight: bold; letter-spacing: 0.5px;}
-        .nav-item { padding: 10px 0; cursor: pointer; opacity: 0.7; transition: all 0.2s; font-size: 15px; border-right: 3px solid transparent; padding-right: 10px; margin-right: -10px; }
-        .nav-item:hover, .nav-item.active { opacity: 1; color: var(--warm-sand); font-weight: bold; border-right: 3px solid var(--warm-sand); }
-
-        /* Main Content Area */
-        .main { flex-grow: 1; padding: 40px; box-sizing: border-box; overflow-y: auto; height: 100vh; position: relative; }
-        .hidden { display: none !important; }
-        h1 { margin-top: 0; font-size: 26px; color: var(--deep-navy); margin-bottom: 5px; }
-        .subtitle { color: var(--text-muted); font-size: 14px; margin-top: 0; margin-bottom: 25px; }
-
-        /* Generic UI Elements */
-        .content-box { background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.02); margin-top: 20px; }
-        button { background: var(--warm-sand); color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 14px; transition: background 0.2s; font-weight: bold; }
-        button:hover { background: var(--warm-sand-hover); }
-        button.secondary { background: #eee; color: var(--text-dark); }
-        button.secondary:hover { background: #e0e0e0; }
-        .tabs { display: flex; gap: 5px; background: white; padding: 5px; border-radius: 8px; border: 1px solid var(--border-color); width: fit-content; margin-bottom: 20px; }
-        .tab { padding: 8px 20px; cursor: pointer; border-radius: 6px; font-size: 14px; transition: all 0.2s; color: var(--text-muted); }
-        .tab.active { background: var(--off-white); font-weight: bold; color: var(--deep-navy); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-
-        /* --- SCREEN 1: Registration Editor --- */
-        .editor-split { display: flex; gap: 30px; height: calc(100vh - 120px); }
-        .editor-controls { flex: 1; background: white; padding: 20px; border-radius: 12px; border: 1px solid var(--border-color); overflow-y: auto; }
-        .editor-preview { flex: 2; background: #ddd; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border: 4px solid #ccc; }
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 14px; }
-        .form-group input[type="text"] { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; }
-        .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-        .preview-card { width: 350px; height: 90%; background: white; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
-        .preview-hero { height: 120px; background: var(--deep-navy); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: bold; }
-        .preview-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; gap: 10px; }
-        .preview-field { height: 35px; background: #f5f5f5; border-radius: 4px; border: 1px solid #eee; }
-
-        /* --- SCREEN 2: Kanban Board --- */
-        .kanban-board { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 20px; min-height: 70vh; }
-        .kanban-column { min-width: 280px; background: #eef1f1; border-radius: 10px; padding: 15px; display: flex; flex-direction: column; gap: 15px; }
-        .col-header { font-weight: bold; color: var(--deep-navy); display: flex; justify-content: space-between; border-bottom: 2px solid var(--border-color); padding-bottom: 10px; }
-        .k-card { background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor: pointer; border-right: 4px solid transparent; transition: transform 0.1s; }
-        .k-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .k-card.status-new { border-color: var(--warm-sand); }
-        .k-card.status-interview { border-color: var(--deep-navy); }
-
-        /* --- MODAL: Candidate Profile (The Masterpiece) --- */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .modal-content { width: 900px; height: 80vh; background: white; border-radius: 16px; display: flex; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.2); direction: rtl; }
-        
-        /* Modal Right: Static ID */
-        .modal-right { width: 280px; background: var(--off-white); padding: 30px 20px; border-left: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .avatar-large { width: 100px; height: 100px; background: #ccc; border-radius: 50%; margin-bottom: 15px; }
-        .candidate-name { font-size: 22px; font-weight: bold; color: var(--deep-navy); margin-bottom: 5px; }
-        .tag { background: #e0e0e0; color: #555; padding: 4px 10px; border-radius: 12px; font-size: 12px; margin: 3px; display: inline-block; }
-        .action-btns { margin-top: 25px; display: flex; gap: 10px; width: 100%; }
-        .action-btns button { flex: 1; padding: 10px; font-size: 13px; display: flex; justify-content: center; align-items: center; gap: 5px; }
-        .btn-whatsapp { background: #25D366; color: white; }
-        .btn-whatsapp:hover { background: #1ebd5a; }
-        
-        /* Modal Left: Dynamic Tabs */
-        .modal-left { flex: 1; display: flex; flex-direction: column; background: white; }
-        .modal-header { padding: 20px 30px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-        .close-btn { cursor: pointer; font-size: 24px; color: #aaa; background: none; border: none; padding: 0; }
-        .modal-body { flex: 1; padding: 30px; overflow-y: auto; }
-        
-        /* Scorecard UI */
-        .score-level { background: var(--off-white); border-radius: 10px; padding: 20px; margin-bottom: 20px; border: 1px solid var(--border-color); }
-        .score-level h4 { margin-top: 0; color: var(--deep-navy); border-bottom: 1px solid #ddd; padding-bottom: 10px; }
-        .radar-placeholder { width: 120px; height: 120px; background: conic-gradient(from 0deg, var(--warm-sand), var(--deep-navy), var(--warm-sand)); border-radius: 50%; opacity: 0.8; margin: 0 auto; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); }
-        .socio-alert { display: flex; align-items: center; gap: 10px; background: #fff3cd; padding: 10px 15px; border-radius: 6px; border-right: 4px solid #ffecb5; font-size: 13px; margin-top: 15px; }
-        .verdict-chips { display: flex; gap: 10px; margin-top: 15px; }
-        .chip { padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 14px; cursor: pointer; border: 1px solid transparent; }
-        .chip.accept { background: #e6f8f3; color: var(--success-green); border-color: var(--success-green); }
-        
-        /* --- SCREEN 4: Dashboard --- */
-        .funnel-stage { background: var(--deep-navy); color: white; padding: 15px; border-radius: 6px; text-align: center; margin-bottom: 10px; margin-left: auto; margin-right: auto; }
-        .funnel-stage span { font-size: 24px; font-weight: bold; color: var(--warm-sand); display: block; }
-        .demo-cards { display: flex; gap: 20px; flex-wrap: wrap; }
-        .demo-card { flex: 1; min-width: 250px; background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; }
-        .donut { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; }
-        .donut.gender { background: conic-gradient(var(--warm-sand) 0% 48%, #eee 48% 100%); }
-        .donut-inner { width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--text-muted); }
-        .ops-alert { border-right: 4px solid var(--alert-orange); background: #fff5f5; padding: 15px 20px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;}
-
-        /* --- SCREEN 5: Final Group --- */
-        .analytics-strip { display: flex; gap: 15px; margin-bottom: 25px; }
-        .analytic-widget { background: white; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; flex: 1; text-align: center; }
-        .gallery { display: flex; gap: 15px; flex-wrap: wrap; }
-        .gallery-card { background: white; border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; width: 140px; text-align: center; }
-        
-        /* Document Matrix Table */
-        table.matrix { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
-        table.matrix th, table.matrix td { padding: 12px; text-align: right; border-bottom: 1px solid #eee; }
-        table.matrix th { background: var(--off-white); font-weight: normal; color: var(--text-muted); }
-        .dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-left: 8px; }
-        .dot.red { background: var(--alert-orange); }
-        .dot.yellow { background: var(--wait-yellow); }
-        .dot.green { background: var(--success-green); }
-
-    </style>
+    <title>מגדלור — Master Version</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
     <!-- Sidebar Navigation -->
     <div class="sidebar">
-        <h2>מגדלור.</h2>
-        
+        <h2>מגדלור<span>.</span></h2>
+
         <div class="nav-category">ניהול המיון</div>
         <div class="nav-item active" onclick="navigate('kanban', this)">לוח מועמדים (קאנבן)</div>
         <div class="nav-item" onclick="navigate('editor', this)">עורך דף הרשמה</div>
@@ -150,28 +38,43 @@
             <p class="subtitle">גרור כרטיסיה כדי לשנות סטטוס ולהפעיל אוטומציות תקשורת</p>
             <div class="kanban-board">
                 <div class="kanban-column">
-                    <div class="col-header">נרשמו <span style="background:#ddd; border-radius:10px; padding:2px 8px; font-size:12px;">2</span></div>
-                    <div class="k-card status-new" onclick="openModal()">
-                        <strong>רוני ד.</strong><br>
-                        <span style="font-size:12px; color:var(--text-muted);">ניר עם</span>
-                    </div>
-                    <div class="k-card status-new">
-                        <strong>איתי ש.</strong><br>
-                        <span style="font-size:12px; color:var(--text-muted);">חיפה</span>
+                    <div class="col-header">נרשמו <span class="count-badge">2</span></div>
+                    <div class="kanban-cards">
+                        <div class="k-card status-new" onclick="openModal()">
+                            <div class="k-card-avatar">רד</div>
+                            <div class="k-card-body">
+                                <strong>רוני ד.</strong>
+                                <span class="k-card-meta"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>ניר עם</span>
+                            </div>
+                        </div>
+                        <div class="k-card status-new">
+                            <div class="k-card-avatar">אש</div>
+                            <div class="k-card-body">
+                                <strong>איתי ש.</strong>
+                                <span class="k-card-meta"><svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>חיפה</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="kanban-column">
-                    <div class="col-header">יום מועמדים <span style="background:#ddd; border-radius:10px; padding:2px 8px; font-size:12px;">0</span></div>
+                    <div class="col-header">יום מועמדים <span class="count-badge">0</span></div>
+                    <div class="kanban-empty">אין מועמדים בשלב זה</div>
                 </div>
                 <div class="kanban-column">
-                    <div class="col-header">זומנו לראיון <span style="background:#ddd; border-radius:10px; padding:2px 8px; font-size:12px;">1</span></div>
+                    <div class="col-header">זומנו לראיון <span class="count-badge">1</span></div>
+                    <div class="kanban-cards">
                     <div class="k-card status-interview" onclick="openModal()">
-                        <strong>מיכל א.</strong><br>
-                        <span style="font-size:12px; color:var(--text-muted);">מראיין: ליאור צרפתי</span>
+                        <div class="k-card-avatar">מא</div>
+                        <div class="k-card-body">
+                            <strong>מיכל א.</strong>
+                            <span class="k-card-meta"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>ליאור צרפתי</span>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="kanban-column">
-                    <div class="col-header">קבוצה סופית</div>
+                    <div class="col-header">קבוצה סופית <span class="count-badge">0</span></div>
+                    <div class="kanban-empty">אין מועמדים בשלב זה</div>
                 </div>
             </div>
         </div>
@@ -190,11 +93,11 @@
                         <label>תמונת אווירה (Hero)</label>
                         <button class="secondary" style="width:100%">העלה תמונה (JPG/PNG)</button>
                     </div>
-                    <h4 style="margin-bottom:10px; margin-top:30px; border-bottom:1px solid #eee; padding-bottom:5px;">שדות בחירה (Toggles)</h4>
+                    <h4 style="margin-bottom:10px; margin-top:28px; font-size:13.5px; font-weight:600; border-bottom:1px solid var(--border-color); padding-bottom:8px;">שדות בחירה (Toggles)</h4>
                     <div class="toggle-row"><span>יישוב מגורים</span> <input type="checkbox" checked></div>
                     <div class="toggle-row"><span>תנועת נוער</span> <input type="checkbox" checked></div>
                     <div class="toggle-row"><span>שם בית ספר</span> <input type="checkbox"></div>
-                    <button style="width:100%; margin-top:20px;">שמור ופרסם</button>
+                    <button class="primary" style="width:100%; margin-top:20px;">שמור ופרסם</button>
                 </div>
                 <div class="editor-preview">
                     <div class="preview-card">
@@ -203,7 +106,7 @@
                             <div class="preview-field" style="width: 100%;"></div>
                             <div class="preview-field" style="width: 100%;"></div>
                             <div class="preview-field" style="width: 100%;"></div>
-                            <button style="margin-top:auto; background:var(--warm-sand);">שלח מועמדות</button>
+                            <button class="primary" style="margin-top:auto;">שלח מועמדות</button>
                         </div>
                     </div>
                 </div>
@@ -218,13 +121,13 @@
                 <div class="tab" onclick="switchTab('dash-demo', this, '.dash-view')">פסיפס אנושי</div>
                 <div class="tab" onclick="switchTab('dash-ops', this, '.dash-view')">תפעול ועומסים</div>
             </div>
-            
+
             <div id="dash-funnel" class="dash-view">
                 <div class="content-box">
-                    <div style="width: 80%;" class="funnel-stage"><span>420</span> נרשמו</div>
-                    <div style="width: 65%; background:#4a5557;" class="funnel-stage"><span>315</span> יום מועמדים</div>
-                    <div style="width: 50%; background:#677477;" class="funnel-stage"><span>180</span> ראיון אישי</div>
-                    <div style="width: 35%; background:#88989a;" class="funnel-stage"><span>65</span> התקבלו</div>
+                    <div style="width: 80%; background:var(--deep-ink);" class="funnel-stage"><span>420</span> נרשמו</div>
+                    <div style="width: 65%; background:var(--deep-ink-soft);" class="funnel-stage"><span>315</span> יום מועמדים</div>
+                    <div style="width: 50%; background:#cc7a3d;" class="funnel-stage"><span>180</span> ראיון אישי</div>
+                    <div style="width: 35%; background:var(--warm-sand);" class="funnel-stage"><span>65</span> התקבלו</div>
                 </div>
             </div>
 
@@ -237,7 +140,7 @@
                     </div>
                     <div class="demo-card">
                         <h3>גיאוגרפיה</h3>
-                        <div class="donut" style="background: conic-gradient(var(--deep-navy) 0% 40%, var(--warm-sand) 40% 70%, #eee 70% 100%);"><div class="donut-inner">100%</div></div>
+                        <div class="donut" style="background: conic-gradient(var(--deep-ink-soft) 0% 40%, var(--warm-sand) 40% 70%, var(--surface-alt) 70% 100%);"><div class="donut-inner">100%</div></div>
                         <p>40% מרכז | 30% דרום (כולל ניר עם) | 30% צפון</p>
                     </div>
                 </div>
@@ -268,8 +171,8 @@
                     <div class="analytic-widget"><button class="secondary" style="width:100%">+ הוסף חיתוך</button></div>
                 </div>
                 <div class="gallery">
-                    <div class="gallery-card"><div class="avatar-large" style="width:60px; height:60px;"></div><strong>רוני ד.</strong></div>
-                    <div class="gallery-card"><div class="avatar-large" style="width:60px; height:60px;"></div><strong>איתי ש.</strong></div>
+                    <div class="gallery-card"><div class="avatar-large" style="width:56px; height:56px; margin-bottom:10px;"></div>רוני ד.</div>
+                    <div class="gallery-card"><div class="avatar-large" style="width:56px; height:56px; margin-bottom:10px;"></div>איתי ש.</div>
                 </div>
             </div>
 
@@ -300,22 +203,22 @@
         <div id="settings" class="screen hidden">
             <h1>הגדרות ואוטומציות</h1>
             <div class="content-box">
-                <h3 style="margin-top:0; border-bottom:1px solid #eee; padding-bottom:10px;">תקשורת (הודעות למועמד)</h3>
-                <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px;">
+                <h3 style="margin-top:0; font-size:14.5px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">תקשורת (הודעות למועמד)</h3>
+                <div style="display:flex; gap:20px; align-items:center; margin-bottom:20px; font-size:13.5px;">
                     <div><input type="radio" name="comm" checked> <strong>Email</strong> (חינם, כלול)</div>
                     <div><input type="radio" name="comm"> <strong>WhatsApp API</strong> (תוסף פרימיום)</div>
                 </div>
                 <button class="secondary">ערוך תבניות הודעה (Templates)</button>
 
-                <h3 style="margin-top:40px; border-bottom:1px solid #eee; padding-bottom:10px;">יומן ושיבוצים (Scheduling)</h3>
-                <p>מדיניות טיפול בנעלמים (מועמד שלא בחר מועד לראיון תוך 48 שעות):</p>
-                <div>
-                    <input type="radio" name="noshow"> שלח תזכורת אוטומטית (Nudge)<br><br>
+                <h3 style="margin-top:36px; font-size:14.5px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">יומן ושיבוצים (Scheduling)</h3>
+                <p style="font-size:13.5px; color:var(--text-muted);">מדיניות טיפול בנעלמים (מועמד שלא בחר מועד לראיון תוך 48 שעות):</p>
+                <div style="font-size:13.5px; line-height:2;">
+                    <input type="radio" name="noshow"> שלח תזכורת אוטומטית (Nudge)<br>
                     <input type="radio" name="noshow" checked> אל תעשה כלום (סינון טבעי)
                 </div>
             </div>
         </div>
-        
+
         <!-- Placeholders for other screens -->
         <div id="interviews" class="screen hidden"><h1>ראיונות</h1><div class="content-box">רשימת משובצים לראיונות (טבלה)</div></div>
         <div id="appeals" class="screen hidden"><h1>ערעורים</h1><div class="content-box">ניהול ערעורים מול מנהל</div></div>
@@ -331,9 +234,9 @@
                 <div class="candidate-name">רוני ד.</div>
                 <div>
                     <span class="tag">ניר עם</span>
-                    <span class="tag">שנת לידה: 2008</span>
+                    <span class="tag">שנת לידה: <span class="mono">2008</span></span>
                 </div>
-                <div style="margin-top: 20px; font-size: 14px; color: var(--deep-navy);">
+                <div style="margin-top: 18px; font-size: 13.5px; color: var(--deep-ink);">
                     <strong>סטטוס:</strong> יום מועמדים
                 </div>
                 <div class="action-btns">
@@ -341,7 +244,7 @@
                     <button class="secondary">חייג</button>
                 </div>
             </div>
-            
+
             <div class="modal-left">
                 <div class="modal-header">
                     <div class="tabs" style="margin:0;">
@@ -351,34 +254,35 @@
                     </div>
                     <button class="close-btn" onclick="closeModal()">×</button>
                 </div>
-                
+
                 <div class="modal-body">
                     <!-- Scorecard View -->
                     <div id="mod-score" class="mod-view">
-                        
+
                         <div class="score-level">
                             <h4>1. פרופיל AI (שאלון היכרות)</h4>
                             <div class="radar-placeholder"></div>
-                            <p style="text-align:center; font-size:13px; color:var(--text-muted);">חוזקות: אחריות אישית, יצירתיות.</p>
-                        </div>
-                        
-                        <div class="score-level">
-                            <h4>2. תצפית שטח (יום מועמדים)</h4>
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div>
-                                    <div>מנהיגות: 4/5</div>
-                                    <div>עבודה בצוות: 5/5</div>
-                                </div>
-                                <div style="font-size:32px; font-weight:bold; color:var(--warm-sand);">8.5</div>
-                            </div>
-                            <div class="socio-alert">
-                                💡 <strong>סוציומטרי:</strong> פער בין ציון הצוות להערכת העמיתים. מומלץ לבדוק בראיון.
-                            </div>
+                            <p style="text-align:center; font-size:13px; color:var(--text-muted); margin-bottom:0;">חוזקות: אחריות אישית, יצירתיות.</p>
                         </div>
 
                         <div class="score-level">
+                            <h4>2. תצפית שטח (יום מועמדים)</h4>
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <div style="font-size:13.5px; line-height:1.8;">
+                                    <div>מנהיגות: 4/5</div>
+                                    <div>עבודה בצוות: 5/5</div>
+                                </div>
+                                <div class="mono" style="font-size:30px; font-weight:700; color:var(--warm-sand);">8.5</div>
+                            </div>
+                            <div class="insight-note">
+                                <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.3" r="0.6" fill="currentColor" stroke="none"/></svg>
+                                <span><strong>סוציומטרי:</strong> פער בין ציון הצוות להערכת העמיתים. מומלץ לבדוק בראיון.</span>
+                            </div>
+                        </div>
+
+                        <div class="score-level" style="margin-bottom:0;">
                             <h4>3. ראיון אישי</h4>
-                            <p style="font-size:14px;">"מועמדת בוגרת מאוד, הביעה רצון להשתלב בצוות ההתנדבות..." (מראיין: ליאור צרפתי)</p>
+                            <p style="font-size:13.5px; margin-top:0;">"מועמדת בוגרת מאוד, הביעה רצון להשתלב בצוות ההתנדבות..." (מראיין: ליאור צרפתי)</p>
                             <div class="verdict-chips">
                                 <div class="chip accept">התקבלה לקבוצה</div>
                             </div>
@@ -388,16 +292,16 @@
 
                     <!-- Timeline View -->
                     <div id="mod-time" class="mod-view hidden">
-                        <ul style="list-style:none; padding:0; margin:0; line-height:2;">
-                            <li>🟢 <strong>12/07/2026:</strong> הוזנה החלטה - התקבל/ה.</li>
-                            <li>📧 <strong>05/07/2026:</strong> זימון לראיון נשלח אוטומטית.</li>
-                            <li>📝 <strong>01/07/2026:</strong> הרשמה מקוונת נקלטה.</li>
+                        <ul class="timeline">
+                            <li><time>12/07/2026</time><strong>הוזנה החלטה</strong> — התקבל/ה.</li>
+                            <li><time>05/07/2026</time>זימון לראיון נשלח אוטומטית.</li>
+                            <li><time>01/07/2026</time>הרשמה מקוונת נקלטה.</li>
                         </ul>
                     </div>
 
                     <!-- Docs View -->
                     <div id="mod-docs" class="mod-view hidden">
-                        <p>אין מסמכים מצורפים עדיין.</p>
+                        <p style="color:var(--text-muted); font-size:13.5px;">אין מסמכים מצורפים עדיין.</p>
                     </div>
 
                 </div>
@@ -411,7 +315,7 @@
         function navigate(screenId, element) {
             document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
             document.getElementById(screenId).classList.remove('hidden');
-            
+
             document.querySelectorAll('.sidebar .nav-item').forEach(i => i.classList.remove('active'));
             element.classList.add('active');
         }
@@ -421,10 +325,10 @@
             // Hide all views inside this context
             const container = element.closest('.screen, .modal-content');
             container.querySelectorAll(viewClass).forEach(v => v.classList.add('hidden'));
-            
+
             // Show target
             document.getElementById(targetId).classList.remove('hidden');
-            
+
             // Update active state on tabs in this specific tab group
             element.parentElement.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
@@ -441,39 +345,50 @@
 function initDynamicKanban() {
     const savedStages = localStorage.getItem('migdalor_stages');
     const kanbanBoard = document.querySelector('.kanban-board');
-    
+
     if (savedStages) {
         // אם נמצאו נתונים מאשף ההקמה, נמחק את עמודות ה-Demo הקשיחות
-        kanbanBoard.innerHTML = ''; 
+        kanbanBoard.innerHTML = '';
         const stagesArray = JSON.parse(savedStages);
-        
+
         stagesArray.forEach((stageName, index) => {
             // יצירת עמודה חדשה לכל שלב
             const column = document.createElement('div');
             column.className = 'kanban-column';
-            
+
             // ב-Demo נשים 0 מועמדים, למעט עמודה ראשונה כדי שיהיה מה לראות
-            const count = index === 0 ? 2 : 0; 
-            
+            const count = index === 0 ? 2 : 0;
+            const pinIcon = '<svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7-6.5-7-12a7 7 0 0 1 14 0c0 5.5-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+
             let cardsHTML = '';
             if (index === 0) {
                 cardsHTML = `
-                    <div class="k-card status-new" onclick="openModal()">
-                        <strong>רוני ד.</strong><br>
-                        <span style="font-size:12px; color:var(--text-muted);">ניר עם</span>
-                    </div>
-                    <div class="k-card status-new">
-                        <strong>איתי ש.</strong><br>
-                        <span style="font-size:12px; color:var(--text-muted);">חיפה</span>
+                    <div class="kanban-cards">
+                        <div class="k-card status-new" onclick="openModal()">
+                            <div class="k-card-avatar">רד</div>
+                            <div class="k-card-body">
+                                <strong>רוני ד.</strong>
+                                <span class="k-card-meta">${pinIcon}ניר עם</span>
+                            </div>
+                        </div>
+                        <div class="k-card status-new">
+                            <div class="k-card-avatar">אש</div>
+                            <div class="k-card-body">
+                                <strong>איתי ש.</strong>
+                                <span class="k-card-meta">${pinIcon}חיפה</span>
+                            </div>
+                        </div>
                     </div>
                 `;
+            } else {
+                cardsHTML = `<div class="kanban-empty">אין מועמדים בשלב זה</div>`;
             }
 
             column.innerHTML = `
-                <div class="col-header">${stageName} <span style="background:#ddd; border-radius:10px; padding:2px 8px; font-size:12px;">${count}</span></div>
+                <div class="col-header">${stageName} <span class="count-badge">${count}</span></div>
                 ${cardsHTML}
             `;
-            
+
             kanbanBoard.appendChild(column);
         });
     }

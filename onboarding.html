@@ -4,156 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>מגדלור - ברוכים הבאים</title>
-    <style>
-        /* Design System Variables */
-        :root {
-            --warm-sand: #d6a47a;
-            --warm-sand-hover: #c59165;
-            --deep-navy: #2d3436;
-            --off-white: #f8f7f4;
-            --text-dark: #333;
-            --text-muted: #888;
-            --border-color: #e0e0e0;
-        }
-
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background-color: var(--deep-navy); 
-            margin: 0; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            height: 100vh; 
-            color: var(--text-dark); 
-        }
-
-        /* Wizard Container */
-        .wizard-container {
-            background: white;
-            width: 600px;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Progress Bar */
-        .progress-bar {
-            display: flex;
-            background: var(--off-white);
-            border-bottom: 1px solid var(--border-color);
-        }
-        .progress-step {
-            flex: 1;
-            text-align: center;
-            padding: 15px 0;
-            font-size: 13px;
-            color: var(--text-muted);
-            position: relative;
-        }
-        .progress-step.active {
-            color: var(--deep-navy);
-            font-weight: bold;
-        }
-        .progress-step.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: var(--warm-sand);
-        }
-
-        /* Wizard Body */
-        .wizard-body {
-            padding: 40px;
-            min-height: 280px;
-        }
-        .step-content {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-        .step-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 { margin-top: 0; color: var(--deep-navy); font-size: 24px; }
-        p { color: var(--text-muted); font-size: 15px; margin-bottom: 25px; }
-
-        /* Form Elements */
-        label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 14px; }
-        input[type="text"], input[type="date"], input[type="number"] {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 15px;
-            margin-bottom: 20px;
-            font-family: inherit;
-        }
-        
-        /* Funnel Builder (Step 2) */
-        .funnel-stage-box {
-            background: var(--off-white);
-            border: 1px solid var(--border-color);
-            padding: 12px 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            color: var(--deep-navy);
-        }
-        .lock-icon { color: var(--text-muted); font-size: 12px; }
-
-        /* Dates Builder (Step 3) */
-        .date-row {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            background: #fff;
-            padding: 15px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        .date-row input { margin-bottom: 0; }
-        .remove-btn { color: #aaa; cursor: pointer; font-size: 18px; border: none; background: none; }
-        .remove-btn:hover { color: var(--alert-orange); }
-
-        /* Footer / Navigation */
-        .wizard-footer {
-            padding: 20px 40px;
-            background: var(--off-white);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-        }
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-        button.primary { background: var(--warm-sand); color: white; }
-        button.primary:hover { background: var(--warm-sand-hover); }
-        button.secondary { background: transparent; color: var(--text-muted); border: 1px solid #ccc;}
-        button.secondary:hover { color: var(--deep-navy); background: #eee; }
-        button.text-only { background: transparent; color: var(--text-muted); padding: 0;}
-        button.text-only:hover { color: var(--deep-navy); }
-
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/onboarding.css">
 </head>
 <body>
 
@@ -168,76 +23,89 @@
 
         <!-- Content Area -->
         <div class="wizard-body">
-            
+
             <!-- Step 1: Basic Info -->
             <div class="step-content active" id="step-1">
                 <h2>ברוכים הבאים למגדלור!</h2>
                 <p>בואו נגדיר את סביבת העבודה של המכינה שלכם בכמה שניות.</p>
                 <label>שם המכינה</label>
                 <input type="text" placeholder="לדוגמה: מכינת רבין, שלוחת אדמית">
-                
+
                 <label>לוגו המוסד</label>
-                <div style="border: 2px dashed var(--border-color); padding: 20px; text-align: center; border-radius: 8px; color: var(--text-muted); cursor: pointer;">
-                    לחץ כאן להעלאת קובץ (PNG/JPG)
-                </div>
+                <div class="upload-box">לחץ כאן להעלאת קובץ (PNG/JPG)</div>
             </div>
 
             <!-- Step 2: Funnel -->
             <div class="step-content" id="step-2">
                 <h2>בניית משפך המיונים</h2>
                 <p>אלו השלבים שהמועמדים שלכם יעברו בדרך לקבוצה הסופית.</p>
-                
-                <div class="funnel-stage-box" style="background:#fff; border-color:var(--warm-sand);">
-                    <span>1. נרשמו למערכת</span> <span class="lock-icon">🔒 שלב קבוע</span>
+
+                <div class="funnel-stage-box locked">
+                    <span>1. נרשמו למערכת</span>
+                    <span class="badge-locked">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                        שלב קבוע
+                    </span>
                 </div>
                 <div class="funnel-stage-box">
-                    <span>2. יום מועמדים</span> <span class="lock-icon">🔒 נדרש לשיבוץ</span>
+                    <span>2. יום מועמדים</span>
+                    <span class="badge-locked">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                        נדרש לשיבוץ
+                    </span>
                 </div>
                 <div class="funnel-stage-box">
-                    <span>3. ראיון אישי</span> <span style="cursor:pointer; color:#aaa;">🗑️</span>
+                    <span>3. ראיון אישי</span>
+                    <button class="remove-btn">×</button>
                 </div>
-                <button class="secondary" style="width:100%; border:1px dashed #ccc; margin-bottom:10px;">+ הוסף שלב חדש (למשל: סוציומטרי)</button>
-                <div class="funnel-stage-box" style="background:#fff; border-color:var(--warm-sand);">
-                    <span>4. קבוצה סופית</span> <span class="lock-icon">🔒 שלב קבוע</span>
+                <button class="dashed-btn" style="margin-bottom:8px;">+ הוסף שלב חדש (למשל: סוציומטרי)</button>
+                <div class="funnel-stage-box locked">
+                    <span>4. קבוצה סופית</span>
+                    <span class="badge-locked">
+                        <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+                        שלב קבוע
+                    </span>
                 </div>
             </div>
 
-            <!-- Step 3: Dates (NEW) -->
+            <!-- Step 3: Dates -->
             <div class="step-content" id="step-3">
                 <h2>מועדי ימי המיונים</h2>
                 <p>הגדירו מתי יתקיימו ימי המועמדים. המערכת תאפשר לנרשמים להשתבץ לימים אלו על בסיס מקום פנוי.</p>
-                
+
                 <div id="dates-container">
                     <div class="date-row">
                         <div style="flex:2;">
-                            <label style="font-size:12px;">תאריך</label>
+                            <label>תאריך</label>
                             <input type="date">
                         </div>
                         <div style="flex:1;">
-                            <label style="font-size:12px;">מקסימום נרשמים</label>
+                            <label>מקסימום נרשמים</label>
                             <input type="number" value="50">
                         </div>
-                        <button class="remove-btn">×</button>
+                        <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
                     </div>
                     <div class="date-row">
                         <div style="flex:2;">
-                            <label style="font-size:12px;">תאריך</label>
+                            <label>תאריך</label>
                             <input type="date">
                         </div>
                         <div style="flex:1;">
-                            <label style="font-size:12px;">מקסימום נרשמים</label>
+                            <label>מקסימום נרשמים</label>
                             <input type="number" value="50">
                         </div>
-                        <button class="remove-btn">×</button>
+                        <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
                     </div>
                 </div>
-                
-                <button class="secondary" style="width:100%; border:1px dashed #ccc; margin-top:10px;" onclick="addDateRow()">+ הוסף מועד נוסף</button>
+
+                <button class="dashed-btn" style="margin-top:8px;" onclick="addDateRow()">+ הוסף מועד נוסף</button>
             </div>
 
             <!-- Step 4: Finish -->
             <div class="step-content" id="step-4" style="text-align: center;">
-                <div style="font-size: 50px; margin-bottom: 20px;">✨</div>
+                <div class="finish-icon">
+                    <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                </div>
                 <h2>הכל מוכן!</h2>
                 <p>היומנים מסונכרנים, המשפך מוגדר ולוח הבקרה מוכן. אפשר להתחיל את המיונים.</p>
             </div>
@@ -302,11 +170,11 @@
         row.className = 'date-row';
         row.innerHTML = `
             <div style="flex:2;">
-                <label style="font-size:12px;">תאריך</label>
+                <label>תאריך</label>
                 <input type="date">
             </div>
             <div style="flex:1;">
-                <label style="font-size:12px;">מקסימום נרשמים</label>
+                <label>מקסימום נרשמים</label>
                 <input type="number" value="50">
             </div>
             <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
